@@ -5,7 +5,7 @@
  */
 package edu.elon.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -13,6 +13,7 @@ import org.junit.Test;
 
 /**
  * Enter summary here
+ * 
  * @author Matthew Bloom
  * @version 1.0
  *
@@ -34,19 +35,14 @@ public class ATMTest {
   }
 
   /**
-   * Test method for {@link edu.elon.test.ATM#ATM()}.
-   */
-  @Test
-  public void testATM() {
-    fail("Not yet implemented");
-  }
-
-  /**
    * Test method for {@link edu.elon.test.ATM#ATM(double)}.
    */
   @Test
   public void testATMDouble() {
-    fail("Not yet implemented");
+    ATM ATMClass = new ATM(1000.1);
+    if (ATMClass.getBalance() != 1000.1) {
+      fail("Balance not correct");
+    }
   }
 
   /**
@@ -54,7 +50,11 @@ public class ATMTest {
    */
   @Test
   public void testDeposit() {
-    fail("Not yet implemented");
+    ATM ATMClass = new ATM(1000.1);
+    ATMClass.deposit(1000);
+    if (ATMClass.getBalance() != 2000.1) {
+      fail("Balance not correct");
+    }
   }
 
   /**
@@ -62,7 +62,19 @@ public class ATMTest {
    */
   @Test
   public void testGetBalance() {
-    fail("Not yet implemented");
+    ATM ATMClass = new ATM(1000.1);
+    if (ATMClass.getBalance() != 1000.1) {
+      fail("Balance not correct");
+    }
+  }
+
+  /**
+   * Test method for exception {@link edu.elon.test.ATM#deposit()}.
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testDepositExcpetion() {
+    ATM ATMClass = new ATM(1000.1);
+    ATMClass.deposit(1 - 1000);
   }
 
   /**
@@ -70,7 +82,11 @@ public class ATMTest {
    */
   @Test
   public void testToString() {
-    fail("Not yet implemented");
+    String expected = "Amount balance is $1,000.00";
+    ATM ATMClass = new ATM(1000);
+    if (!(ATMClass.toString().equals(expected))) {
+      fail("Statement is incorrect");
+    }
   }
 
   /**
@@ -78,7 +94,20 @@ public class ATMTest {
    */
   @Test
   public void testWithdraw() {
-    fail("Not yet implemented");
+    ATM ATMClass = new ATM(1000);
+    ATMClass.withdraw(200);
+    if (ATMClass.getBalance() != 800) {
+      fail("Balance not correct");
+    }
+  }
+
+  /**
+   * Test method for {@link edu.elon.test.ATM#withdraw(double)}.
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testWithdrawException() {
+    ATM ATMClass = new ATM(1000.1);
+    ATMClass.withdraw(-1000);
   }
 
 }
